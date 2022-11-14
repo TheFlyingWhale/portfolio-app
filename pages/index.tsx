@@ -1,11 +1,15 @@
+import { useState } from "react";
 import api from "../lib/apiService/apiService";
 import client from "../lib/client/client";
 import Animal from "../lib/interfaces/animal";
 interface HomeProps {
 	animals: Animal[];
+	error: any;
 }
 
-const Home: React.FC<HomeProps> = ({ animals }) => {
+const Home: React.FC<HomeProps> = ({ animals, error }) => {
+	console.log(error);
+
 	if (!animals || animals.length === 0)
 		return (
 			<>
@@ -63,13 +67,23 @@ export const getStaticProps = async () => {
 		.get("/project")
 		.then((res) => {
 			console.log("-------api res --------", res.data);
-			return res.data;
+			return {
+				ok: true,
+				data: res.data,
+			};
 		})
-		.catch((err) => console.log("-------api err --------"));
+		.catch((err) => {
+			return {
+				ok: false,
+				data: err,
+			};
+		});
 
-	if (!animals)
+	if (!animals.ok)
 		return {
-			props: {},
+			props: {
+				error: animals.data,
+			},
 		};
 
 	return {
