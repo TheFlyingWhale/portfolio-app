@@ -10,7 +10,20 @@ const Home: React.FC<HomeProps> = ({ animals }) => {
 	if (!animals || animals.length === 0)
 		return (
 			<>
-				<p>something went wrong</p>
+				<header>
+					<h1>Sanity + Next.js</h1>
+				</header>
+				<main>
+					<h2>Animals</h2>
+					<div>
+						<div>¯\_(ツ)_/¯</div>
+
+						<p>
+							Your data will show up here when you have configured
+							everything correctly
+						</p>
+					</div>
+				</main>
 			</>
 		);
 
@@ -37,7 +50,7 @@ const Home: React.FC<HomeProps> = ({ animals }) => {
 				{!(animals.length > 0) && (
 					<div>
 						<div>¯\_(ツ)_/¯</div>
-						<p>god damn it</p>
+
 						<p>
 							Your data will show up here when you have configured
 							everything correctly
@@ -70,7 +83,7 @@ export const getStaticProps = async () => {
 		.catch((err) => {
 			console.log("-------------api err data-----------", err.data);
 			console.log("-------------api err headers-----------", err.header);
-			return err;
+			return null;
 		});
 
 	return {
