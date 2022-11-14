@@ -29,6 +29,7 @@ const Home: React.FC<HomeProps> = ({ animals }) => {
 				{!(animals.length > 0) && (
 					<div>
 						<div>¯\_(ツ)_/¯</div>
+						<p>god damn it</p>
 						<p>
 							Your data will show up here when you have configured
 							everything correctly
