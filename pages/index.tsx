@@ -6,6 +6,13 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ animals }) => {
+	if (!animals || animals.length === 0)
+		return (
+			<>
+				<p>something went wrong</p>
+			</>
+		);
+
 	return (
 		<>
 			<header>
@@ -59,6 +66,11 @@ export const getStaticProps = async () => {
 			return res.data;
 		})
 		.catch((err) => console.log("-------api err --------"));
+
+	if (!animals)
+		return {
+			props: {},
+		};
 
 	return {
 		props: {
