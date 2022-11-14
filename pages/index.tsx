@@ -64,7 +64,7 @@ const Home: React.FC<HomeProps> = ({ animals }) => {
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
 	//const animals = await fetch("http://localhost:3000/api/project")
 	//	.then(async (res) => {
 	//		return await res.json();
