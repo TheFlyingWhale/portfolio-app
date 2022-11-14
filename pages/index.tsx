@@ -7,8 +7,6 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ animals }) => {
-	console.log(animals);
-
 	if (!animals || animals.length === 0)
 		return (
 			<>
