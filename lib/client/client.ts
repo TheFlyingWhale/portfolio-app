@@ -7,7 +7,7 @@ if (!projectId) {
 }
 
 const client = createClient({
-	projectId: "rz16aple",
+	projectId: projectId,
 	dataset: "production",
 	apiVersion: "2022-11-14",
 	useCdn: false,
