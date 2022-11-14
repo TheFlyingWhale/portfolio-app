@@ -1,5 +1,5 @@
+import client from "../lib/client/client";
 import Animal from "../lib/interfaces/animal";
-import { createClient } from "next-sanity";
 interface HomeProps {
 	props: {
 		animals: Animal[];
@@ -45,13 +45,6 @@ const Home: React.FC<HomeProps> = (props) => {
 };
 
 export default Home;
-
-const client = createClient({
-	projectId: "rz16aple",
-	dataset: "production",
-	apiVersion: "2022-11-14",
-	useCdn: false,
-});
 
 export const getStaticProps = async () => {
 	const animals = await client.fetch(`*[_type == "animal"]`);
