@@ -8,8 +8,6 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ animals, error }) => {
-	console.log(error);
-
 	if (!animals || animals.length === 0)
 		return (
 			<>
@@ -73,18 +71,8 @@ export const getStaticProps = async () => {
 			};
 		})
 		.catch((err) => {
-			return {
-				ok: false,
-				data: err,
-			};
+			console.log("-------------api err-----------", err);
 		});
-
-	if (!animals.ok)
-		return {
-			props: {
-				error: animals.data,
-			},
-		};
 
 	return {
 		props: {
