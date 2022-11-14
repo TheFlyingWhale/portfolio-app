@@ -81,8 +81,8 @@ export const getServerSideProps = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.log("-------------api err data-----------", err.data);
-			console.log("-------------api err headers-----------", err.header);
+			console.log("-------------api err data-----------", err);
+			console.log("-------------api err headers-----------", err);
 			return null;
 		});
 
