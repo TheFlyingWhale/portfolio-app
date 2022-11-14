@@ -1,15 +1,11 @@
+import api from "../lib/apiService/apiService";
 import client from "../lib/client/client";
 import Animal from "../lib/interfaces/animal";
 interface HomeProps {
-	props: {
-		animals: Animal[];
-	};
 	animals: Animal[];
 }
 
-const Home: React.FC<HomeProps> = (props) => {
-	const animals = props.animals;
-
+const Home: React.FC<HomeProps> = ({ animals }) => {
 	return (
 		<>
 			<header>
@@ -47,7 +43,16 @@ const Home: React.FC<HomeProps> = (props) => {
 export default Home;
 
 export const getStaticProps = async () => {
-	const animals = await client.fetch(`*[_type == "project"]`);
+	const animals = await fetch("http://localhost:3000/api/project")
+		.then(async (res) => {
+			return await res.json();
+		})
+		.catch((err) => console.log(err));
+
+	const apiRes = await api
+		.get("/project")
+		.then((res) => console.log("-------api res --------", res))
+		.catch((err) => console.log("-------api err --------", err));
 
 	return {
 		props: {
