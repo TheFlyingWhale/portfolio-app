@@ -47,7 +47,7 @@ const Home: React.FC<HomeProps> = (props) => {
 export default Home;
 
 export const getStaticProps = async () => {
-	const animals = await client.fetch(`*[_type == "animal"]`);
+	const animals = await client.fetch(`*[_type == "project"]`);
 
 	return {
 		props: {
