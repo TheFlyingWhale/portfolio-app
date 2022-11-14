@@ -4,10 +4,11 @@ import client from "../lib/client/client";
 import Animal from "../lib/interfaces/animal";
 interface HomeProps {
 	animals: Animal[];
-	error: any;
 }
 
-const Home: React.FC<HomeProps> = ({ animals, error }) => {
+const Home: React.FC<HomeProps> = ({ animals }) => {
+	console.log(animals);
+
 	if (!animals || animals.length === 0)
 		return (
 			<>
@@ -64,14 +65,14 @@ export const getStaticProps = async () => {
 	const animals = await api
 		.get("/project")
 		.then((res) => {
-			console.log("-------api res --------", res.data);
-			return {
-				ok: true,
-				data: res.data,
-			};
+			console.log("-------api res data --------", res.data);
+			console.log("-------api res headers --------", res.headers);
+			return res.data;
 		})
 		.catch((err) => {
-			console.log("-------------api err-----------", err);
+			console.log("-------------api err data-----------", err.data);
+			console.log("-------------api err headers-----------", err.header);
+			return err;
 		});
 
 	return {
