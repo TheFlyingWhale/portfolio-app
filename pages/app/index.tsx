@@ -1,7 +1,5 @@
-import { useState } from "react";
-import api from "../lib/apiService/apiService";
-import client from "../lib/client/client";
-import Animal from "../lib/interfaces/animal";
+import api from "../../lib/apiService/apiService";
+import Animal from "../../lib/interfaces/animal";
 interface HomeProps {
 	animals: Animal[];
 }
@@ -65,24 +63,12 @@ const Home: React.FC<HomeProps> = ({ animals }) => {
 export default Home;
 
 export const getServerSideProps = async () => {
-	//const animals = await fetch("http://localhost:3000/api/project")
-	//	.then(async (res) => {
-	//		return await res.json();
-	//	})
-	//	.catch((err) => console.log(err));
-
-	//const animals = [{}];
-
 	const animals = await api
 		.get("/project")
 		.then((res) => {
-			console.log("-------api res data --------", res.data);
-			console.log("-------api res headers --------", res.headers);
 			return res.data;
 		})
 		.catch((err) => {
-			console.log("-------------api err data-----------", err);
-			console.log("-------------api err headers-----------", err);
 			return null;
 		});
 
