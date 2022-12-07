@@ -1,80 +1,83 @@
 import api from "../../lib/apiService/apiService";
-import Animal from "../../lib/interfaces/animal";
+import { SimpleGrid, Stack } from "@mantine/core";
+import PageContainer from "../../components/pageContainer/pageContainer";
+import Hero from "../../components/hero/hero";
+import { IndexProject, Project } from "../../lib/interfaces/project";
+import ProjectCard from "../../components/projectCard/projectCard";
+import AboutSection from "../../components/aboutSection/aboutSection";
+import { About } from "../../lib/interfaces/about";
 interface HomeProps {
-	animals: Animal[];
+	projects: IndexProject[];
+	about: [About];
 }
 
-const Home: React.FC<HomeProps> = ({ animals }) => {
-	if (!animals || animals.length === 0)
-		return (
-			<>
-				<header>
-					<h1>Sanity + Next.js</h1>
-				</header>
-				<main>
-					<h2>Animals</h2>
-					<div>
-						<div>¯\_(ツ)_/¯</div>
-
-						<p>
-							Your data will show up here when you have configured
-							everything correctly
-						</p>
-					</div>
-				</main>
-			</>
-		);
-
+const Home: React.FC<HomeProps> = ({ projects, about }) => {
 	return (
-		<>
-			<header>
-				<h1>Sanity + Next.js</h1>
-			</header>
-			<main>
-				<h2>Animals</h2>
-				{animals.length > 0 && (
-					<ul>
-						{animals.map((animal) => (
-							<li key={animal._id}>{animal?.name}</li>
+		<PageContainer>
+			<Stack spacing={6 * 20}>
+				<Hero
+					title="Digital Designer"
+					subtitle="In a world of impressions"
+					paragraph="Designing visual solutions which is understandable and aids the user is what I'm passionate about"
+					image={{
+						text: "",
+						caption: "",
+						height: undefined,
+						width: undefined,
+						displayCaption: false,
+						align: "",
+						withBorderRadius: true,
+						withShadow: true,
+						includeTitle: false,
+						title: "",
+						subtitle: "",
+						_type: "imageElement",
+						imageUrl:
+							"https://olewalberg.com/content/gnosis/MockupCover.jpg",
+					}}
+				/>
+				<SimpleGrid cols={2} spacing={6 * 10}>
+					{projects &&
+						projects.map((project, index) => (
+							<ProjectCard key={index} project={project} />
 						))}
-					</ul>
-				)}
-				{!(animals.length > 0) && <p>No animals to show</p>}
-				{animals.length > 0 && (
-					<div>
-						<pre>{JSON.stringify(animals, null, 2)}</pre>
-					</div>
-				)}
-				{!(animals.length > 0) && (
-					<div>
-						<div>¯\_(ツ)_/¯</div>
-
-						<p>
-							Your data will show up here when you have configured
-							everything correctly
-						</p>
-					</div>
-				)}
-			</main>
-		</>
+				</SimpleGrid>
+				<AboutSection about={about} />
+			</Stack>
+		</PageContainer>
 	);
 };
 
 export default Home;
 
 export const getServerSideProps = async () => {
-	const animals = await api
-		.get("/project")
+	const projects = await api
+		.get<Project[]>("/project")
 		.then((res) => {
 			return res.data;
 		})
 		.catch((err) => {
+			console.error(
+				"index - getServerSideProps - get project failed",
+				err
+			);
+			return null;
+		});
+
+	const about = await api
+		.get<[About]>("/about")
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			console.error("index - getServerSideProps - get about failed", err);
 			return null;
 		});
 
 	return {
 		props: {
-			animals,
+			projects,
+			about,
 		},
 	};
 };
