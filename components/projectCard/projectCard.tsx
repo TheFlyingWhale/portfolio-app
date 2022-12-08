@@ -9,12 +9,13 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-	const { active, hovered, ref } = useActiveHover<HTMLAnchorElement>();
+	const { active, hovered, ref } = useActiveHover<HTMLImageElement>();
 	const { classes: resShadow } = useResponsiveShadow({ hovered, active });
 	return (
-		<Link href={`app/project/${project.slug.current}`} ref={ref}>
+		<Link href={`app/project/${project.slug.current}`}>
 			<Stack>
 				<Image
+					ref={ref}
 					alt=""
 					src={project.imageUrl}
 					radius={6 * 2}

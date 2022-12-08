@@ -29,16 +29,15 @@ const ImageElement: React.FC<ImageElementProps> = ({ section }) => {
 	return (
 		<Stack
 			style={{
-				justifyContent: align && align,
-				alignItems: align && align,
+				justifyContent: align ? align : "normal",
+				alignItems: align ? align : "normal",
 			}}
 		>
-			<Stack spacing={6} align={align && align}>
-				<Box>
+			<Stack spacing={6} align={align ? align : ""}>
+				<Box className={`${withShadow && shadow.md}`}>
 					<Image
-						className={`${withShadow && shadow.md}`}
-						height={height && height}
-						width={width && width}
+						mah={height ? height : ""}
+						maw={width ? width : ""}
 						fit="contain"
 						alt={caption}
 						src={imageUrl}

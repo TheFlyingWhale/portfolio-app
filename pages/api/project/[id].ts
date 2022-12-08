@@ -24,7 +24,7 @@ const getProject = async (req: NextApiRequest, res: NextApiResponse) => {
   					_type=="textElement" => @{_type,...},
 					_type=="imageElement" => @{_type,"imageUrl":@.image.asset->url, title, includeTitle, text, subtitle, displayCaption, withBorderRadius, withShadow, caption, align, weight, height, width},
 					_type=="textCollection" => @{_type,"collection":textCollection[]},
-					_type=="imageCollection" => @{_type, "collection":imageCollection[]{
+					_type=="imageCollection" => @{_type, ignoreBreakpoints, "collection":imageCollection[]{
 						_type=="imageElement"=>@{_type,"imageUrl":@.image.asset->url, title, includeTitle, caption, displayCaption, text, subtitle, align, withBorderRadius, withShadow, weight, height, width}
 					}}
 				}

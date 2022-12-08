@@ -7,15 +7,13 @@ import useTypographyStyles from "../../styles/useTypographyStyles";
 interface HeaderLinkProps {
 	children: React.ReactNode;
 	href: string;
-	fontSize: number;
-	fontWeight?: number;
+	className?: string;
 }
 
 const HeaderLink: React.FC<HeaderLinkProps> = ({
 	href,
 	children,
-	fontSize,
-	fontWeight = 500,
+	className,
 }) => {
 	const { classes: typStyles } = useTypographyStyles();
 	const { active, hovered, ref } = useActiveHover<HTMLButtonElement>();
@@ -26,11 +24,7 @@ const HeaderLink: React.FC<HeaderLinkProps> = ({
 			<Anchor
 				ref={ref}
 				component="button"
-				className={`${classes.sm} ${typStyles.link}`}
-				style={{
-					fontSize: `${(1 / 16) * fontSize}em`,
-					fontWeight: fontWeight,
-				}}
+				className={`${classes.sm} ${typStyles.link} ${className}`}
 			>
 				{children}
 			</Anchor>

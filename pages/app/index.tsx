@@ -1,5 +1,5 @@
 import api from "../../lib/apiService/apiService";
-import { SimpleGrid, Stack } from "@mantine/core";
+import { SimpleGrid, Stack, useMantineTheme } from "@mantine/core";
 import PageContainer from "../../components/pageContainer/pageContainer";
 import Hero from "../../components/hero/hero";
 import { IndexProject, Project } from "../../lib/interfaces/project";
@@ -12,6 +12,8 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ projects, about }) => {
+	const { breakpoints } = useMantineTheme();
+
 	return (
 		<PageContainer>
 			<Stack spacing={6 * 20}>
@@ -36,7 +38,11 @@ const Home: React.FC<HomeProps> = ({ projects, about }) => {
 							"https://olewalberg.com/content/gnosis/MockupCover.jpg",
 					}}
 				/>
-				<SimpleGrid cols={2} spacing={6 * 10}>
+				<SimpleGrid
+					cols={2}
+					breakpoints={[{ maxWidth: breakpoints.md, cols: 1 }]}
+					spacing={6 * 10}
+				>
 					{projects &&
 						projects.map((project, index) => (
 							<ProjectCard key={index} project={project} />

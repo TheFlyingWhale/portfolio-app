@@ -21,7 +21,6 @@ interface ProjectPageProps {
 }
 
 const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
-	console.log(project);
 	const { hero, pageSections } = project;
 
 	return (
@@ -73,7 +72,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 						<Button
 							leftIcon={<IconArrowLeft size={6 * 4} />}
 							color="gray"
-							size="lg"
+							size="sm"
 						>
 							Head back
 						</Button>

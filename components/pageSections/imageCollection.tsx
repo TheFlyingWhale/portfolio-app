@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@mantine/core";
+import { SimpleGrid, useMantineTheme } from "@mantine/core";
 import {
 	ImageCollectionSection,
 	ImageSection,
@@ -10,10 +10,24 @@ interface ImageCollectionProps {
 }
 
 const ImageCollection: React.FC<ImageCollectionProps> = ({ section }) => {
-	const { collection } = section;
+	const { collection, ignoreBreakpoints } = section;
+	const { breakpoints } = useMantineTheme();
 
 	return (
-		<SimpleGrid cols={collection.length} spacing={6 * 10}>
+		<SimpleGrid
+			//cols={collection.length}
+			spacing={6 * 10}
+			breakpoints={[
+				{
+					maxWidth: breakpoints.md,
+					cols: ignoreBreakpoints ? collection.length : 1,
+				},
+				{
+					minWidth: breakpoints.md,
+					cols: ignoreBreakpoints ? collection.length : 2,
+				},
+			]}
+		>
 			{collection.map((section, index) => (
 				<ImageElement key={index} section={section as ImageSection} />
 			))}

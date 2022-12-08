@@ -12,6 +12,14 @@ const SeparateMantineProvider: React.FC<SeparateMantineProviderProps> = ({
 	return (
 		<MantineProvider
 			theme={{
+				breakpoints: {
+					xs: 320, //Mobile S
+					sm: 425, //Mobile L
+					md: 768, //Tablet
+					lg: 1024, //Laptop
+					xl: 1300, //Laptop L
+				},
+
 				fontFamily: "Heebo",
 				headings: {
 					fontFamily: "Josefin Sans",

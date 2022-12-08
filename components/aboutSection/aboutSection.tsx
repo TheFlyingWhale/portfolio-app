@@ -1,6 +1,14 @@
-import { Stack, Title, Text, SimpleGrid, Image } from "@mantine/core";
+import {
+	Stack,
+	Title,
+	Text,
+	SimpleGrid,
+	Image,
+	useMantineTheme,
+} from "@mantine/core";
 import { About, EductionSection } from "../../lib/interfaces/about";
 import { useShadow } from "../../styles/useShadow";
+import useAboutStyles from "./useAboutStyles";
 
 interface AboutSectionProps {
 	about: [About];
@@ -8,21 +16,25 @@ interface AboutSectionProps {
 
 const AboutSection: React.FC<AboutSectionProps> = ({ about }) => {
 	const { classes: shadow } = useShadow();
+	const { breakpoints } = useMantineTheme();
+	const { textTitle } = useAboutStyles().classes;
 
 	if (!about.length) return <></>;
 	const data = about[0];
 
 	return (
 		<Stack>
-			<Title
-				order={2}
-				style={{
-					fontSize: `${(1 / 16) * 6 * 10}em`,
-				}}
-			>
+			<Title order={2} className={textTitle}>
 				{data.title}
 			</Title>
-			<SimpleGrid cols={3} spacing={6 * 10}>
+			<SimpleGrid
+				cols={3}
+				breakpoints={[
+					{ maxWidth: breakpoints.lg, cols: 2 },
+					{ maxWidth: breakpoints.md, cols: 1 },
+				]}
+				spacing={6 * 10}
+			>
 				<Text
 					style={{
 						whiteSpace: "pre-wrap",
@@ -45,6 +57,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({ about }) => {
 					style={{
 						borderRadius: 6 * 2,
 						overflow: "hidden",
+					}}
+					sx={{
+						figure: {
+							borderRadius: 6 * 2,
+							overflow: "hidden",
+						},
 					}}
 					src={data.profilePicture}
 				/>
