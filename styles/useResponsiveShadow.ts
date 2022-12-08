@@ -5,7 +5,7 @@ interface UseShadowProps {
 	hovered: boolean;
 }
 
-const useResponsiveShadow = createStyles(
+const useResponsiveTransformShadow = createStyles(
 	(_theme, { active, hovered }: UseShadowProps, getRef) => ({
 		sm: {
 			transition: active
@@ -25,4 +25,4 @@ const useResponsiveShadow = createStyles(
 	})
 );
 
-export default useResponsiveShadow;
+export default useResponsiveTransformShadow;

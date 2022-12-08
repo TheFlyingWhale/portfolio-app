@@ -4,13 +4,11 @@ import {
 	Text,
 	Stack,
 	Paper,
-	ActionIcon,
 	useMantineTheme,
 	Anchor,
 	Button,
 } from "@mantine/core";
 import { IconBrandLinkedin } from "@tabler/icons";
-import Link from "next/link";
 import { useShadow } from "../../styles/useShadow";
 import useFooterStyles from "./useFooterStyles";
 

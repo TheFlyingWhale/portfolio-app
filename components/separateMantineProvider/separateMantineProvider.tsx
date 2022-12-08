@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import useResponsiveTransform from "../../styles/useResponsiveTransform";
 
 interface SeparateMantineProviderProps {
 	children: React.ReactNode;
@@ -32,6 +33,7 @@ const SeparateMantineProvider: React.FC<SeparateMantineProviderProps> = ({
 						styles: (theme, params) => ({
 							root: {
 								borderRadius: STYLE_BASE_UNIT,
+								transition: "transform 0.25s",
 								backgroundColor:
 									params.variant === "filled"
 										? theme.colors[
@@ -47,6 +49,8 @@ const SeparateMantineProvider: React.FC<SeparateMantineProviderProps> = ({
 										  ][1]
 										: "undefined",
 								"&:hover": {
+									transition: "transform 0.25s",
+									transform: "scale(1.025) translateY(-2px)",
 									backgroundColor:
 										params.variant === "filled"
 											? theme.colors[
@@ -81,6 +85,10 @@ const SeparateMantineProvider: React.FC<SeparateMantineProviderProps> = ({
 													// eslint-disable-next-line no-mixed-spaces-and-tabs
 											  ][7]
 											: "undefined",
+								},
+								"&:active": {
+									transition: "scale 0.5s",
+									transform: "scale(0.990) translateY(2px)",
 								},
 							},
 						}),

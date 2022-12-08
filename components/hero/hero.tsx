@@ -1,15 +1,14 @@
 import {
-	Group,
 	Stack,
 	Title,
 	Text,
-	Image,
 	Box,
 	SimpleGrid,
 	useMantineTheme,
 } from "@mantine/core";
 import { ImageSection } from "../../lib/interfaces/project";
 import { useShadow } from "../../styles/useShadow";
+import useTypographyStyles from "../../styles/useTypographyStyles";
 import ImageElement from "../pageSections/imageElement";
 import useHeroStyles from "./useHeroStyles";
 
@@ -27,9 +26,9 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, paragraph, image }) => {
 		textContainer,
 		textTitle,
 		textSubtitle,
-		textBody,
 		imageContainer,
 	} = useHeroStyles().classes;
+	const { classes: typography } = useTypographyStyles();
 
 	const { breakpoints } = useMantineTheme();
 
@@ -46,13 +45,8 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, paragraph, image }) => {
 				<Stack className={textContainer}>
 					{title && (
 						<Title
-							className={`${textTitle} ${shadow.sm}`}
+							className={`${textTitle} ${shadow.sm} ${typography.title}`}
 							order={1}
-							style={
-								{
-									//whiteSpace: "nowrap",
-								}
-							}
 						>
 							{title}
 						</Title>
@@ -60,9 +54,8 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, paragraph, image }) => {
 					<Stack spacing={6}>
 						{subtitle && (
 							<Title
-								className={`${textSubtitle} ${shadow.sm}`}
+								className={`${textSubtitle} ${shadow.sm} ${typography.subtitle}`}
 								order={2}
-								weight={700}
 								style={{
 									fontFamily: "Heebo",
 								}}
@@ -72,11 +65,10 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, paragraph, image }) => {
 						)}
 						{paragraph && (
 							<Text
-								className={`${textBody} ${shadow.sm}`}
+								className={`${typography.body}`}
 								style={{
 									maxWidth: "50ch",
 									fontSize: `${(1 / 16) * 6 * 3}em`,
-									lineHeight: "150%",
 									whiteSpace: "pre-wrap",
 								}}
 							>

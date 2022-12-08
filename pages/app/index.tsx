@@ -18,9 +18,9 @@ const Home: React.FC<HomeProps> = ({ projects, about }) => {
 		<PageContainer>
 			<Stack spacing={6 * 20}>
 				<Hero
-					title="Digital Designer"
-					subtitle="In a world of impressions"
-					paragraph="Designing visual solutions which is understandable and aids the user is what I'm passionate about"
+					title="Digital Generalist"
+					subtitle="In a matrix of impressions"
+					paragraph="Designing and developing visual solutions which is understandable and aids the user is what I'm passionate about"
 					image={{
 						text: "",
 						caption: "",

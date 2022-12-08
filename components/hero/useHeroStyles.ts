@@ -17,12 +17,9 @@ const useHeroStyles = createStyles((theme) => {
 			[`@media(max-width: ${theme.breakpoints.sm}px)`]: {
 				minHeight: "300px",
 			},
-
-			//backgroundColor: "orange",
 		},
 
 		grid: {
-			//backgroundColor: "orange",
 			flexGrow: 1,
 		},
 
@@ -32,9 +29,6 @@ const useHeroStyles = createStyles((theme) => {
 			justifyContent: "center",
 			zIndex: 10,
 			gap: 0,
-			//flexGrow: 1,
-
-			//backgroundColor: "blue",
 		},
 
 		textTitle: {
@@ -59,18 +53,11 @@ const useHeroStyles = createStyles((theme) => {
 			},
 		},
 
-		textBody: {},
-
 		imageContainer: {
 			display: "flex",
 			alignItems: "center",
 			justifyContent: "end",
-			//justifyContent: "center",
-			//display: "none",
-			//display: "flex",
-			//flexBasis: 0,
-			//flexGrow: 1,
-			//backgroundColor: "pink",
+
 			[`@media(max-width: ${theme.breakpoints.md}px)`]: {
 				display: "none",
 			},
