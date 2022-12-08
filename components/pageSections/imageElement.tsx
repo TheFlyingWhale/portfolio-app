@@ -9,11 +9,8 @@ interface ImageElementProps {
 
 const ImageElement: React.FC<ImageElementProps> = ({ section }) => {
 	const { classes: shadow } = useShadow();
-
-	const { colors } = useMantineTheme();
 	const {
 		caption,
-		displayCaption,
 		imageUrl,
 		includeTitle,
 		text,
@@ -31,6 +28,7 @@ const ImageElement: React.FC<ImageElementProps> = ({ section }) => {
 			style={{
 				justifyContent: align ? align : "normal",
 				alignItems: align ? align : "normal",
+				flexGrow: 1,
 			}}
 		>
 			<Stack spacing={6} align={align ? align : ""}>
@@ -38,25 +36,16 @@ const ImageElement: React.FC<ImageElementProps> = ({ section }) => {
 					<Image
 						mah={height ? height : ""}
 						maw={width ? width : ""}
-						fit="contain"
+						//fit="contain"
 						alt={caption}
 						src={imageUrl}
 						style={{
 							borderRadius: withBorderRadius ? 6 * 2 : 0,
 							overflow: withBorderRadius ? "hidden" : "visible",
 						}}
+						caption={caption}
 					/>
 				</Box>
-				{caption && displayCaption && (
-					<Text
-						style={{
-							fontSize: `${(1 / 16) * 6 * 2.5}em`,
-							color: colors.gray[5],
-						}}
-					>
-						{caption}
-					</Text>
-				)}
 			</Stack>
 			{(title || subtitle || text) && (
 				<TextElement

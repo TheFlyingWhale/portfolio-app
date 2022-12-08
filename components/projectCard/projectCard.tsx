@@ -22,25 +22,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 			onClick={() => setIsLoading(true)}
 		>
 			<Stack>
-				<Box
-					style={{
-						position: "relative",
-					}}
-				>
-					<LoadingOverlay
-						visible={isLoading}
-						style={{
-							borderRadius: 6 * 2,
-						}}
-					/>
-					<Image
-						ref={ref}
-						alt=""
-						src={project.imageUrl}
-						radius={6 * 2}
-						className={resShadow.sm}
-					/>
-				</Box>
+				<Image
+					ref={ref}
+					alt=""
+					src={project.imageUrl}
+					radius={6 * 2}
+					className={resShadow.sm}
+				/>
 				<Stack spacing={0}>
 					<Title
 						order={3}

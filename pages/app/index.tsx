@@ -20,7 +20,7 @@ const Home: React.FC<HomeProps> = ({ projects, about }) => {
 				<Hero
 					title="Digital Generalist"
 					subtitle="In a matrix of impressions"
-					paragraph="Designing and developing visual solutions which is understandable and aids the user is what I'm passionate about"
+					paragraph="Designing and developing visual solutions which is visually pleasing and understandable is my passion"
 					image={{
 						text: "",
 						caption: "",
