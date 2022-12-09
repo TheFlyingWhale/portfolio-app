@@ -13,8 +13,6 @@ const ImageCollection: React.FC<ImageCollectionProps> = ({ section }) => {
 	const { collection, ignoreBreakpoints, fixedColumns } = section;
 	const { breakpoints } = useMantineTheme();
 
-	console.log(fixedColumns);
-
 	return (
 		<SimpleGrid
 			cols={fixedColumns ? fixedColumns : undefined}

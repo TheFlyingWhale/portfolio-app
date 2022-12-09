@@ -27,6 +27,21 @@ export interface Project extends MetaData {
 	)[];
 }
 
+interface ImageDocument extends PageSectionMeta {
+	title: string;
+	includeTitle: boolean;
+	subtitle: string;
+	text: string;
+	imageUrl: string;
+	caption: string;
+	displayCaption: boolean;
+	withBorderRadius: boolean;
+	withShadow: boolean;
+	align: string;
+	height: number | undefined;
+	width: number | undefined;
+}
+
 interface ImageSection extends PageSectionMeta {
 	title: string;
 	includeTitle: boolean;
@@ -66,7 +81,8 @@ interface PageSectionMeta {
 		| "textElement"
 		| "imageElement"
 		| "textCollection"
-		| "imageCollection";
+		| "imageCollection"
+		| "imageDocument";
 }
 
 interface CoverImage {
