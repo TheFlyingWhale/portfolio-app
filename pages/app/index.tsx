@@ -2,28 +2,32 @@ import api from "../../lib/apiService/apiService";
 import { SimpleGrid, Stack, useMantineTheme } from "@mantine/core";
 import PageContainer from "../../components/pageContainer/pageContainer";
 import Hero from "../../components/hero/hero";
-import { IndexProject, Project } from "../../lib/interfaces/project";
+import {
+	HeroInterface,
+	IndexProject,
+	Project,
+} from "../../lib/interfaces/project";
 import ProjectCard from "../../components/projectCard/projectCard";
 import AboutSection from "../../components/aboutSection/aboutSection";
 import { About } from "../../lib/interfaces/about";
 interface HomeProps {
 	projects: IndexProject[];
 	about: [About];
-	imageUrl: string;
+	hero: HeroInterface;
 }
 
-const Home: React.FC<HomeProps> = ({ projects, about, imageUrl }) => {
+const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 	const { breakpoints } = useMantineTheme();
 
-	console.log(imageUrl);
+	console.log(hero);
 
 	return (
 		<PageContainer>
 			<Stack spacing={6 * 20}>
 				<Hero
-					title="Digital Generalist"
-					subtitle="In a matrix of impressions"
-					paragraph="Designing and developing visual solutions which is visually pleasing and understandable is my passion"
+					title={hero.header}
+					subtitle={hero.subheader}
+					paragraph={hero.text}
 					image={{
 						text: "",
 						caption: "",
@@ -37,7 +41,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, imageUrl }) => {
 						title: "",
 						subtitle: "",
 						_type: "imageElement",
-						imageUrl: imageUrl,
+						imageUrl: hero.image.imageUrl,
 					}}
 				/>
 				<SimpleGrid
@@ -82,16 +86,13 @@ export const getServerSideProps = async () => {
 			return null;
 		});
 
-	const imageUrl = await api
-		.get("/image/index-hero")
+	const hero = await api
+		.get("/project/index")
 		.then((res) => {
-			return res.data[0].imageUrl;
+			return res.data[0].hero;
 		})
 		.catch((err) => {
-			console.error(
-				"index - getServerSideProps - get hero image url failed",
-				err
-			);
+			console.error("index - getServerSideProps - get index hero", err);
 			return null;
 		});
 
@@ -99,7 +100,7 @@ export const getServerSideProps = async () => {
 		props: {
 			projects,
 			about,
-			imageUrl,
+			hero,
 		},
 	};
 };

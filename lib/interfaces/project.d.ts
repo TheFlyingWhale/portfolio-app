@@ -18,7 +18,7 @@ export interface Project extends MetaData {
 	subtitle: string;
 	description: string;
 	//Content
-	hero: Hero;
+	hero: HeroInterface;
 	pageSections: (
 		| ImageSection
 		| ImageCollectionSection
@@ -100,7 +100,7 @@ interface Slug {
 	_type: string;
 }
 
-interface Hero {
+interface HeroInterface {
 	header: string;
 	subheader: string;
 	text: string;
