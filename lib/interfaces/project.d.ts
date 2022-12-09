@@ -44,6 +44,7 @@ interface ImageSection extends PageSectionMeta {
 
 interface ImageCollectionSection extends PageSectionMeta {
 	collection: ImageSection[];
+	fixedColumns: number;
 	ignoreBreakpoints: boolean;
 }
 

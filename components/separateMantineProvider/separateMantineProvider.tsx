@@ -1,5 +1,4 @@
 import { MantineProvider } from "@mantine/core";
-import useResponsiveTransform from "../../styles/useResponsiveTransform";
 
 interface SeparateMantineProviderProps {
 	children: React.ReactNode;

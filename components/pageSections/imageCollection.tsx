@@ -10,21 +10,31 @@ interface ImageCollectionProps {
 }
 
 const ImageCollection: React.FC<ImageCollectionProps> = ({ section }) => {
-	const { collection, ignoreBreakpoints } = section;
+	const { collection, ignoreBreakpoints, fixedColumns } = section;
 	const { breakpoints } = useMantineTheme();
+
+	console.log(fixedColumns);
 
 	return (
 		<SimpleGrid
-			//cols={collection.length}
+			cols={fixedColumns ? fixedColumns : undefined}
 			spacing={6 * 10}
 			breakpoints={[
 				{
-					maxWidth: breakpoints.md,
-					cols: ignoreBreakpoints ? collection.length : 1,
+					maxWidth: breakpoints.sm,
+					cols: ignoreBreakpoints
+						? collection.length
+						: fixedColumns
+						? fixedColumns
+						: 1,
 				},
 				{
 					minWidth: breakpoints.md,
-					cols: ignoreBreakpoints ? collection.length : 2,
+					cols: ignoreBreakpoints
+						? collection.length
+						: fixedColumns
+						? fixedColumns
+						: 2,
 				},
 			]}
 		>
