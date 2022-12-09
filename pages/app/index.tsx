@@ -9,10 +9,13 @@ import { About } from "../../lib/interfaces/about";
 interface HomeProps {
 	projects: IndexProject[];
 	about: [About];
+	imageUrl: string;
 }
 
-const Home: React.FC<HomeProps> = ({ projects, about }) => {
+const Home: React.FC<HomeProps> = ({ projects, about, imageUrl }) => {
 	const { breakpoints } = useMantineTheme();
+
+	console.log(imageUrl);
 
 	return (
 		<PageContainer>
@@ -34,8 +37,7 @@ const Home: React.FC<HomeProps> = ({ projects, about }) => {
 						title: "",
 						subtitle: "",
 						_type: "imageElement",
-						imageUrl:
-							"https://olewalberg.com/content/gnosis/MockupCover.jpg",
+						imageUrl: imageUrl,
 					}}
 				/>
 				<SimpleGrid
@@ -80,10 +82,24 @@ export const getServerSideProps = async () => {
 			return null;
 		});
 
+	const imageUrl = await api
+		.get("/image/index-hero")
+		.then((res) => {
+			return res.data[0].imageUrl;
+		})
+		.catch((err) => {
+			console.error(
+				"index - getServerSideProps - get hero image url failed",
+				err
+			);
+			return null;
+		});
+
 	return {
 		props: {
 			projects,
 			about,
+			imageUrl,
 		},
 	};
 };
