@@ -19,8 +19,6 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 	const { breakpoints } = useMantineTheme();
 
-	console.log(hero);
-
 	return (
 		<PageContainer>
 			<Stack spacing={6 * 20}>
