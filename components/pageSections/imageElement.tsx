@@ -31,7 +31,7 @@ const ImageElement: React.FC<ImageElementProps> = ({ section }) => {
 				flexGrow: 1,
 			}}
 		>
-			<Stack spacing={6} align={align ? align : ""}>
+			<Stack spacing={6}>
 				<Box className={`${withShadow && shadow.md}`}>
 					<Image
 						mah={height ? height : ""}
