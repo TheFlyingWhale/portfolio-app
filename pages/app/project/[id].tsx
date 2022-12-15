@@ -85,7 +85,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 
 export default ProjectPage;
 
-export const getServerSideProps = async (context: NextPageContext) => {
+export const getStaticProps = async (context: NextPageContext) => {
 	const { id } = context.query;
 
 	const project = await api
