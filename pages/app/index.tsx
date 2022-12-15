@@ -71,7 +71,7 @@ export const getStaticProps = async () => {
 		})
 		.catch((err) => {
 			console.error(
-				"index - getServerSideProps - get project failed",
+				"index - getServerStaticProps - get project failed",
 				err
 			);
 			return null;
@@ -90,7 +90,9 @@ export const getStaticProps = async () => {
 	const hero = await api
 		.get("/project/index")
 		.then((res) => {
-			return res.data[0].hero;
+			const hero = res.data[0].hero;
+			if (hero) return hero;
+			return null;
 		})
 		.catch((err) => {
 			console.error("index - getServerSideProps - get index hero", err);
