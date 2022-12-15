@@ -22,7 +22,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 	return (
 		<PageContainer>
 			<Stack spacing={6 * 20}>
-				{hero && (
+				{hero !== null && (
 					<Hero
 						title={hero.header}
 						subtitle={hero.subheader}
@@ -44,7 +44,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 						}}
 					/>
 				)}
-				{projects && (
+				{projects !== null && (
 					<SimpleGrid
 						cols={2}
 						breakpoints={[{ maxWidth: breakpoints.md, cols: 1 }]}
@@ -55,7 +55,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 						))}
 					</SimpleGrid>
 				)}
-				{about && <AboutSection about={about} />}
+				{about !== null && <AboutSection about={about} />}
 			</Stack>
 		</PageContainer>
 	);

@@ -1,5 +1,6 @@
 import { Button, Group, Stack } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons";
+import { NextPage, NextPageContext } from "next";
 import Link from "next/link";
 import Hero from "../../../components/hero/hero";
 import PageContainer from "../../../components/pageContainer/pageContainer";
@@ -88,36 +89,59 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 
 export default ProjectPage;
 
-export const getStaticPaths = async () => {
-	//const projects: { slug: string }[] | [] = await api
-	//	.get("/project", {
-	//		params: { onlySlugs: true },
-	//	})
-	//	.then((res) => {
-	//		return res.data;
-	//	})
-	//	.catch((err) => {
-	//		return [];
-	//	});
+//export const getStaticPaths = async () => {
+//	//const projects: { slug: string }[] | [] = await api
+//	//	.get("/project", {
+//	//		params: { onlySlugs: true },
+//	//	})
+//	//	.then((res) => {
+//	//		return res.data;
+//	//	})
+//	//	.catch((err) => {
+//	//		return [];
+//	//	});
 
-	//const paths = !projects.length
-	//	? []
-	//	: projects.map((project) => {
-	//			return {
-	//				params: {
-	//					id: project.slug,
-	//				},
-	//			};
-	//	  });
+//	//const paths = !projects.length
+//	//	? []
+//	//	: projects.map((project) => {
+//	//			return {
+//	//				params: {
+//	//					id: project.slug,
+//	//				},
+//	//			};
+//	//	  });
 
-	return {
-		paths: [{ params: { id: "studybud" } }],
-		fallback: false, // can also be true or 'blocking'
-	};
-};
+//	return {
+//		paths: [{ params: { id: "studybud" } }],
+//		fallback: false, // can also be true or 'blocking'
+//	};
+//};
 
-export const getStaticProps = async (context: { params: { id: string } }) => {
-	const { id } = context.params;
+//export const getStaticProps = async (context: { params: { id: string } }) => {
+//	const { id } = context.params;
+
+//	const project = await api
+//		.get(`/project/${id}`)
+//		.then((res) => {
+//			return res.data[0];
+//		})
+//		.catch((err) => {
+//			console.error(
+//				"project/[id] - getServerSideProps - get project failed",
+//				err
+//			);
+//			return null;
+//		});
+
+//	return {
+//		props: {
+//			project,
+//		},
+//	};
+//};
+
+export const getServerSideProps = async (context: NextPageContext) => {
+	const { id } = context.query;
 
 	const project = await api
 		.get(`/project/${id}`)
