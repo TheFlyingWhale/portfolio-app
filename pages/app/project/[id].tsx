@@ -85,7 +85,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 
 export default ProjectPage;
 
-export const getServerSideProps = async (context: NextPageContext) => {
+export const getStaticProps = async (context: NextPageContext) => {
 	const { id } = context.query;
 
 	const project = await api
@@ -94,10 +94,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
 			return res.data[0];
 		})
 		.catch((err) => {
-			console.error(
-				"index - getServerSideProps - get project failed",
-				err
-			);
+			console.error("index - getStaticProps - get project failed", err);
 			return null;
 		});
 
