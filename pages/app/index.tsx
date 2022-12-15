@@ -60,14 +60,17 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 
 export default Home;
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 	const projects = await api
 		.get<Project[]>("/project")
 		.then((res) => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.error("index - getStaticProps - get project failed", err);
+			console.error(
+				"index - getServerSideProps - get project failed",
+				err
+			);
 			return null;
 		});
 
@@ -77,7 +80,7 @@ export const getStaticProps = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			console.error("index - getStaticProps - get about failed", err);
+			console.error("index - getServerSideProps - get about failed", err);
 			return null;
 		});
 
@@ -87,7 +90,7 @@ export const getStaticProps = async () => {
 			return res.data[0].hero;
 		})
 		.catch((err) => {
-			console.error("index - getStaticProps - get index hero", err);
+			console.error("index - getServerSideProps - get index hero", err);
 			return null;
 		});
 
