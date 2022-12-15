@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
-const api = axios.create({
+const api: AxiosInstance = axios.create({
 	baseURL: `http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`,
 });
 

@@ -22,37 +22,40 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 	return (
 		<PageContainer>
 			<Stack spacing={6 * 20}>
-				<Hero
-					title={hero.header}
-					subtitle={hero.subheader}
-					paragraph={hero.text}
-					image={{
-						text: "",
-						caption: "",
-						height: undefined,
-						width: undefined,
-						displayCaption: false,
-						align: "",
-						withBorderRadius: true,
-						withShadow: true,
-						includeTitle: false,
-						title: "",
-						subtitle: "",
-						_type: "imageElement",
-						imageUrl: hero.image.imageUrl,
-					}}
-				/>
-				<SimpleGrid
-					cols={2}
-					breakpoints={[{ maxWidth: breakpoints.md, cols: 1 }]}
-					spacing={6 * 10}
-				>
-					{projects &&
-						projects.map((project, index) => (
+				{hero && (
+					<Hero
+						title={hero.header}
+						subtitle={hero.subheader}
+						paragraph={hero.text}
+						image={{
+							text: "",
+							caption: "",
+							height: undefined,
+							width: undefined,
+							displayCaption: false,
+							align: "",
+							withBorderRadius: true,
+							withShadow: true,
+							includeTitle: false,
+							title: "",
+							subtitle: "",
+							_type: "imageElement",
+							imageUrl: hero.image.imageUrl,
+						}}
+					/>
+				)}
+				{projects && (
+					<SimpleGrid
+						cols={2}
+						breakpoints={[{ maxWidth: breakpoints.md, cols: 1 }]}
+						spacing={6 * 10}
+					>
+						{projects.map((project, index) => (
 							<ProjectCard key={index} project={project} />
 						))}
-				</SimpleGrid>
-				<AboutSection about={about} />
+					</SimpleGrid>
+				)}
+				{about && <AboutSection about={about} />}
 			</Stack>
 		</PageContainer>
 	);
@@ -60,7 +63,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
 	const projects = await api
 		.get<Project[]>("/project")
 		.then((res) => {

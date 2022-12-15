@@ -1,8 +1,6 @@
 import { Button, Group, Stack } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons";
-import { NextPageContext } from "next";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Hero from "../../../components/hero/hero";
 import PageContainer from "../../../components/pageContainer/pageContainer";
 import ImageCollection from "../../../components/pageSections/imageCollection";
@@ -21,6 +19,8 @@ interface ProjectPageProps {
 }
 
 const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
+	if (!project) return <></>;
+
 	const { hero, pageSections } = project;
 
 	return (
@@ -54,7 +54,10 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 							return (
 								<TextCollection key={index} section={section} />
 							);
-						if (section._type === "imageCollection")
+						if (
+							section._type === "imageCollection" &&
+							section.length
+						)
 							return (
 								<ImageCollection
 									key={index}
@@ -85,8 +88,36 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 
 export default ProjectPage;
 
-export const getServerSideProps = async (context: NextPageContext) => {
-	const { id } = context.query;
+export const getStaticPaths = async () => {
+	//const projects: { slug: string }[] | [] = await api
+	//	.get("/project", {
+	//		params: { onlySlugs: true },
+	//	})
+	//	.then((res) => {
+	//		return res.data;
+	//	})
+	//	.catch((err) => {
+	//		return [];
+	//	});
+
+	//const paths = !projects.length
+	//	? []
+	//	: projects.map((project) => {
+	//			return {
+	//				params: {
+	//					id: project.slug,
+	//				},
+	//			};
+	//	  });
+
+	return {
+		paths: [{ params: { id: "studybud" } }],
+		fallback: false, // can also be true or 'blocking'
+	};
+};
+
+export const getStaticProps = async (context: { params: { id: string } }) => {
+	const { id } = context.params;
 
 	const project = await api
 		.get(`/project/${id}`)
@@ -95,7 +126,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
 		})
 		.catch((err) => {
 			console.error(
-				"index - getServerSideProps - get project failed",
+				"project/[id] - getServerSideProps - get project failed",
 				err
 			);
 			return null;
