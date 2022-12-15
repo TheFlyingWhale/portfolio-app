@@ -63,7 +63,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 
 export default Home;
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 	const projects = await api
 		.get<Project[]>("/project")
 		.then((res) => {
@@ -107,3 +107,48 @@ export const getStaticProps = async () => {
 		},
 	};
 };
+
+//export const getStaticProps = async () => {
+//	const projects = await api
+//		.get<Project[]>("/project")
+//		.then((res) => {
+//			return res.data;
+//		})
+//		.catch((err) => {
+//			console.error(
+//				"index - getServerStaticProps - get project failed",
+//				err
+//			);
+//			return null;
+//		});
+
+//	const about = await api
+//		.get<[About]>("/about")
+//		.then((res) => {
+//			return res.data;
+//		})
+//		.catch((err) => {
+//			console.error("index - getServerSideProps - get about failed", err);
+//			return null;
+//		});
+
+//	const hero = await api
+//		.get("/project/index")
+//		.then((res) => {
+//			const hero = res.data[0].hero;
+//			if (hero) return hero;
+//			return null;
+//		})
+//		.catch((err) => {
+//			console.error("index - getServerSideProps - get index hero", err);
+//			return null;
+//		});
+
+//	return {
+//		props: {
+//			projects,
+//			about,
+//			hero,
+//		},
+//	};
+//};
