@@ -55,10 +55,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 							return (
 								<TextCollection key={index} section={section} />
 							);
-						if (
-							section._type === "imageCollection" &&
-							section.length
-						)
+						if (section._type === "imageCollection")
 							return (
 								<ImageCollection
 									key={index}
