@@ -1,12 +1,7 @@
-import api from "../../lib/apiService/apiService";
 import { SimpleGrid, Stack, useMantineTheme } from "@mantine/core";
 import PageContainer from "../../components/pageContainer/pageContainer";
 import Hero from "../../components/hero/hero";
-import {
-	HeroInterface,
-	IndexProject,
-	Project,
-} from "../../lib/interfaces/project";
+import { HeroInterface, IndexProject } from "../../lib/interfaces/project";
 import ProjectCard from "../../components/projectCard/projectCard";
 import AboutSection from "../../components/aboutSection/aboutSection";
 import { About } from "../../lib/interfaces/about";

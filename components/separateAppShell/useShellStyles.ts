@@ -7,7 +7,8 @@ const useShellStyles = createStyles((theme) => {
 			display: "flex",
 			flexDirection: "column",
 			alignItems: "center",
-			//overflow: "hidden",
+
+			backgroundColor: theme.colors.gray[0],
 
 			//Less than 1030px
 			[`@media(max-width: ${theme.breakpoints.xl}px)`]: {

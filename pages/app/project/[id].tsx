@@ -1,6 +1,5 @@
 import { Button, Group, Stack } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons";
-import { NextPage, NextPageContext } from "next";
 import Link from "next/link";
 import Hero from "../../../components/hero/hero";
 import PageContainer from "../../../components/pageContainer/pageContainer";
@@ -8,7 +7,6 @@ import ImageCollection from "../../../components/pageSections/imageCollection";
 import ImageElement from "../../../components/pageSections/imageElement";
 import TextCollection from "../../../components/pageSections/textCollection";
 import TextElement from "../../../components/pageSections/textElement";
-import api from "../../../lib/apiService/apiService";
 import client from "../../../lib/client/client";
 import {
 	Project,
