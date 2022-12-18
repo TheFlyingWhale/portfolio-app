@@ -1,6 +1,5 @@
-import { Stack, Title, Text, Image, LoadingOverlay, Box } from "@mantine/core";
+import { Stack, Title, Text, Image } from "@mantine/core";
 import Link from "next/link";
-import { useState } from "react";
 import useActiveHover from "../../lib/hooks/useActiveHover";
 import { IndexProject } from "../../lib/interfaces/project";
 import useResponsiveTransformShadow from "../../styles/useResponsiveShadow";
@@ -10,17 +9,13 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-	const [isLoading, setIsLoading] = useState(false);
 	const { active, hovered, ref } = useActiveHover<HTMLImageElement>();
 	const { classes: resShadow } = useResponsiveTransformShadow({
 		hovered,
 		active,
 	});
 	return (
-		<Link
-			href={`app/project/${project.slug.current}`}
-			onClick={() => setIsLoading(true)}
-		>
+		<Link href={`app/project/${project.slug.current}`}>
 			<Stack>
 				<Image
 					ref={ref}

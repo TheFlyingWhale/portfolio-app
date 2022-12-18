@@ -10,6 +10,7 @@ import {
 import ProjectCard from "../../components/projectCard/projectCard";
 import AboutSection from "../../components/aboutSection/aboutSection";
 import { About } from "../../lib/interfaces/about";
+import client from "../../lib/client/client";
 interface HomeProps {
 	projects: IndexProject[];
 	about: [About];
@@ -63,84 +64,68 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 
 export default Home;
 
-//export const getServerSideProps = async () => {
-//	const projects = await api
-//		.get<Project[]>("/project")
-//		.then((res) => {
-//			return res.data;
-//		})
-//		.catch((err) => {
-//			console.error(
-//				"index - getServerStaticProps - get project failed",
-//				err
-//			);
-//			return null;
-//		});
-
-//	const about = await api
-//		.get<[About]>("/about")
-//		.then((res) => {
-//			return res.data;
-//		})
-//		.catch((err) => {
-//			console.error("index - getServerSideProps - get about failed", err);
-//			return null;
-//		});
-
-//	const hero = await api
-//		.get("/project/index")
-//		.then((res) => {
-//			const hero = res.data[0].hero;
-//			if (hero) return hero;
-//			return null;
-//		})
-//		.catch((err) => {
-//			console.error("index - getServerSideProps - get index hero", err);
-//			return null;
-//		});
-
-//	return {
-//		props: {
-//			projects,
-//			about,
-//			hero,
-//		},
-//	};
-//};
-
 export const getStaticProps = async () => {
-	const projects = await api
-		.get<Project[]>("/project")
+	const about = await client
+		.fetch(
+			`//groq
+			*[_type == "aboutSection"]{
+				title,
+				description,
+				educationSections,
+				"profilePicture":profilePicture.asset->url
+			}`
+		)
 		.then((res) => {
-			return res.data;
+			return res;
 		})
 		.catch((err) => {
 			console.error(
-				"index - getServerStaticProps - get project failed",
+				"index - getStaticProps - fetching about data failed"
+			);
+			return null;
+		});
+
+	const projects = await client
+		.fetch(
+			`//groq
+			*[_type == "project" && active == true] | order(order asc) {
+				...,
+				title,
+				subtitle,
+				description,
+				slug, 
+				"imageUrl":coverImage.asset->url
+			}`
+		)
+		.then((res) => {
+			return res;
+		})
+		.catch((err) => {
+			console.error(
+				"index - getStaticProps - fetching projects failed",
 				err
 			);
 			return null;
 		});
 
-	const about = await api
-		.get<[About]>("/about")
+	const hero = await client
+		.fetch(
+			`//groq
+		*[slug.current=='index']
+		{
+			hero{
+				..., image{"imageUrl":image.asset->url,...}
+			}
+		}`
+		)
 		.then((res) => {
-			return res.data;
+			return res[0].hero;
 		})
 		.catch((err) => {
-			console.error("index - getServerSideProps - get about failed", err);
-			return null;
-		});
-
-	const hero = await api
-		.get("/project/index")
-		.then((res) => {
-			const hero = res.data[0].hero;
-			if (hero) return hero;
-			return null;
-		})
-		.catch((err) => {
-			console.error("index - getServerSideProps - get index hero", err);
+			console.error(
+				"index - getStaticProps - fetching index hro failed",
+				err
+			);
 			return null;
 		});
 
