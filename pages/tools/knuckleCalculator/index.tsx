@@ -22,7 +22,7 @@ const KnuckleCalculator = () => {
 	return (
 		<ToolPageContainer
 			title="Knucklebones"
-			description="Who's the best knuckle buster?"
+			description="Calculate who's the best knuckle buster"
 			titleChildren={
 				<ActionIcon
 					variant="light"

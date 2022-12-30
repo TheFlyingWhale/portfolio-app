@@ -18,7 +18,7 @@ const Tools = () => {
 				<ToolCard
 					title="Knucklebones"
 					icon={<IconDice6 />}
-					text="Calculate scores"
+					text="Calculate who's the best knuckle buster"
 					href="/tools/knuckleCalculator"
 				/>
 			</SimpleGrid>
