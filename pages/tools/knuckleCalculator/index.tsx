@@ -293,6 +293,7 @@ const DiceItem: React.FC<DiceItemProps> = ({ onChange }) => {
 				onChange={(event) => {
 					setValue(event as string);
 				}}
+				maxDropdownHeight={500}
 				data={[
 					{ value: "6", label: "6" },
 					{ value: "5", label: "5" },
