@@ -8,7 +8,7 @@ import ImageCollection from "../../../components/pageSections/imageCollection";
 import ImageElement from "../../../components/pageSections/imageElement";
 import TextCollection from "../../../components/pageSections/textCollection";
 import TextElement from "../../../components/pageSections/textElement";
-import api from "../../../lib/apiService/apiService";
+import client from "../../../lib/client/client";
 import {
 	Project,
 	ImageSection,
@@ -86,19 +86,57 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 
 export default ProjectPage;
 
-export const getServerSideProps = async (context: NextPageContext) => {
-	const { id } = context.query;
+export const getStaticPaths = async () => {
+	const slugs = await client.fetch(
+		`//groq
+			*[_type == "project" && active == true] | order(order asc) {
+				"slug": slug.current, 
+			}
+		`
+	);
 
-	const project = await api
-		.get(`/project/${id}`)
+	const paths = !slugs.length
+		? []
+		: slugs.map((project: { slug: string }) => {
+				return {
+					params: {
+						id: project.slug,
+					},
+				};
+		  });
+
+	return {
+		paths: paths,
+		fallback: false, // can also be true or 'blocking'
+	};
+};
+
+export const getStaticProps = async (context: { params: { id: string } }) => {
+	const { id } = context.params;
+
+	const project = await client
+		.fetch(
+			`//groq
+				*[slug.current=='${id}']
+				{
+					hero{
+						..., image{"imageUrl":image.asset->url,...}
+					}, pageSections[]{
+						  _type=="textElement" => @{_type,...},
+						_type=="imageElement" => @{_type,"imageUrl":@.image.asset->url, title, includeTitle, text, subtitle, displayCaption, withBorderRadius, withShadow, caption, align, weight, height, width},
+						_type=="textCollection" => @{_type,"collection":textCollection[]},
+						_type=="imageCollection" => @{_type, ignoreBreakpoints, fixedColumns, "collection":imageCollection[]{
+							_type=="imageElement"=>@{_type,"imageUrl":@.image.asset->url, title, includeTitle, caption, displayCaption, text, subtitle, align, withBorderRadius, withShadow, weight, height, width}
+						}}
+					}
+				}
+			`
+		)
 		.then((res) => {
-			return res.data[0];
+			return res[0];
 		})
 		.catch((err) => {
-			console.error(
-				"project/[id] - getServerSideProps - get project failed",
-				err
-			);
+			console.error("[id].tsx - error fetching project", err);
 			return null;
 		});
 

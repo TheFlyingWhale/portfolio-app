@@ -1,15 +1,11 @@
-import api from "../../lib/apiService/apiService";
 import { SimpleGrid, Stack, useMantineTheme } from "@mantine/core";
 import PageContainer from "../../components/pageContainer/pageContainer";
 import Hero from "../../components/hero/hero";
-import {
-	HeroInterface,
-	IndexProject,
-	Project,
-} from "../../lib/interfaces/project";
+import { HeroInterface, IndexProject } from "../../lib/interfaces/project";
 import ProjectCard from "../../components/projectCard/projectCard";
 import AboutSection from "../../components/aboutSection/aboutSection";
 import { About } from "../../lib/interfaces/about";
+import client from "../../lib/client/client";
 interface HomeProps {
 	projects: IndexProject[];
 	about: [About];
@@ -22,7 +18,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 	return (
 		<PageContainer>
 			<Stack spacing={6 * 20}>
-				{hero && (
+				{hero !== null && (
 					<Hero
 						title={hero.header}
 						subtitle={hero.subheader}
@@ -44,7 +40,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 						}}
 					/>
 				)}
-				{projects && (
+				{projects !== null && (
 					<SimpleGrid
 						cols={2}
 						breakpoints={[{ maxWidth: breakpoints.md, cols: 1 }]}
@@ -55,7 +51,7 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 						))}
 					</SimpleGrid>
 				)}
-				{about && <AboutSection about={about} />}
+				{about !== null && <AboutSection about={about} />}
 			</Stack>
 		</PageContainer>
 	);
@@ -63,34 +59,66 @@ const Home: React.FC<HomeProps> = ({ projects, about, hero }) => {
 
 export default Home;
 
-export const getServerSideProps = async () => {
-	const projects = await api
-		.get<Project[]>("/project")
+export const getStaticProps = async () => {
+	const about = await client
+		.fetch(
+			`//groq
+			*[_type == "aboutSection"]{
+				title,
+				description,
+				educationSections,
+				"profilePicture":profilePicture.asset->url
+			}`
+		)
 		.then((res) => {
-			return res.data;
+			return res;
 		})
 		.catch((err) => {
-			console.error("index - getStaticProps - get project failed", err);
+			console.error(
+				"index - getStaticProps - fetching about data failed",
+				err
+			);
 			return null;
 		});
 
-	const about = await api
-		.get<[About]>("/about")
+	const projects = await client
+		.fetch(
+			`//groq
+			*[_type == "project" && active == true] | order(order asc) {
+				...,
+				title,
+				subtitle,
+				description,
+				slug, 
+				"imageUrl":coverImage.asset->url
+			}`
+		)
 		.then((res) => {
-			return res.data;
+			return res;
+		})
+		.catch((err) => {
+			console.error(
+				"index - getStaticProps - fetching projects failed",
+				err
+			);
+			return null;
+		});
+
+	const hero = await client
+		.fetch(
+			`//groq
+		*[slug.current=='index']
+		{
+			hero{
+				..., image{"imageUrl":image.asset->url,...}
+			}
+		}`
+		)
+		.then((res) => {
+			return res[0].hero;
 		})
 		.catch((err) => {
 			console.error("index - getStaticProps - get about failed", err);
-			return null;
-		});
-
-	const hero = await api
-		.get("/project/index")
-		.then((res) => {
-			return res.data[0].hero;
-		})
-		.catch((err) => {
-			console.error("index - getStaticProps - get index hero", err);
 			return null;
 		});
 

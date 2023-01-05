@@ -28,6 +28,62 @@ const SeparateMantineProvider: React.FC<SeparateMantineProviderProps> = ({
 				black: "#252525",
 
 				components: {
+					ActionIcon: {
+						styles: (theme, params) => ({
+							root: {
+								backgroundColor:
+									params.variant === "filled"
+										? theme.colors[
+												params.color ||
+													theme.primaryColor
+												// eslint-disable-next-line no-mixed-spaces-and-tabs
+										  ][5]
+										: params.variant === "light"
+										? theme.colors[
+												params.color ||
+													theme.primaryColor
+												// eslint-disable-next-line no-mixed-spaces-and-tabs
+										  ][1]
+										: "undefined",
+								"&:hover": {
+									backgroundColor:
+										params.variant === "filled"
+											? theme.colors[
+													params.color ||
+														theme.primaryColor
+													// eslint-disable-next-line no-mixed-spaces-and-tabs
+											  ][6]
+											: params.variant === "light"
+											? theme.colors[
+													params.color ||
+														theme.primaryColor
+													// eslint-disable-next-line no-mixed-spaces-and-tabs
+											  ][2]
+											: params.variant === "subtle"
+											? theme.colors[
+													params.color ||
+														theme.primaryColor
+													// eslint-disable-next-line no-mixed-spaces-and-tabs
+											  ][1]
+											: "undefined",
+									color:
+										params.variant === "light"
+											? theme.colors[
+													params.color ||
+														theme.primaryColor
+													// eslint-disable-next-line no-mixed-spaces-and-tabs
+											  ][7]
+											: params.variant === "subtle"
+											? theme.colors[
+													params.color ||
+														theme.primaryColor
+													// eslint-disable-next-line no-mixed-spaces-and-tabs
+											  ][7]
+											: "undefined",
+								},
+							},
+						}),
+					},
 					Button: {
 						styles: (theme, params) => ({
 							root: {
